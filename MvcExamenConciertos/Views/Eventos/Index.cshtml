@@ -1,0 +1,68 @@
+﻿@model IEnumerable<MvcExamenConciertos.Models.Evento>
+
+@{
+    ViewData["Title"] = "Index";
+    List<CategoriaEvento> categorias = ViewData["CATEGORIAS"] as List<CategoriaEvento>;
+}
+
+<h1>Conciertos</h1>
+
+<a class="btn btn-outline-secondary" asp-controller="Eventos" asp-action="Categorias">Categorias</a>
+
+<form method="post">
+    <label class="form-label">Busca un concierto</label>
+    <select name="idcategoria" class="form-select">
+        @if(categorias != null)
+        {
+            @foreach (CategoriaEvento cate in categorias)
+            {
+                <option value="@cate.IdCategoria">@cate.Nombre</option>
+            }
+        }
+       
+    </select>
+
+    <button class="btn btn-outline-success">Buscar</button>
+</form>
+@if(Model != null)
+{
+
+    <table class="table table-bordered table-secondary">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Artista)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdCategoria)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Imagen)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Artista)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdCategoria)
+                    </td>
+                    <td>
+                      <img src="@keysModel.BucketUrl@item.Imagen" width="180" height="180" />
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
